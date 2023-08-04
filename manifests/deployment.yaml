@@ -1,36 +1,44 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: applicationset-hello-plugin
-  namespace: applicationset-hello-plugin
+  name: argocd-env-var-plugin-generator
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: argocd-env-var-plugin-generator
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: applicationset-hello-plugin
+      app.kubernetes.io/name: argocd-env-var-plugin-generator
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: applicationset-hello-plugin
+        app.kubernetes.io/name: argocd-env-var-plugin-generator
     spec:
       containers:
-        - name: main
+        - name: argocd-env-var-plugin-generator
           image: python:latest
           command: ["python"]
           args: ["/app/main.py"]
+          imagePullPolicy: Always
           ports:
             - containerPort: 4355
               name: http
+          env:
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: arogocd-generator-plugin-token
+                  key: token
+          envFrom:
+            - secretRef:
+                name: argocd-env-vars
           volumeMounts:
-            - mountPath: /var/run/argo/token
-              name: token
-              subPath: token
-            - name: hello-plugin-script
+            - name: env-var-plugin-generator-script
               mountPath: "/app/main.py"
               subPath: "main.py"
       volumes:
-        - name: token
-          secret:
-            secretName: applicationset-hello-plugin
-        - name: hello-plugin-script
+        - name: env-var-plugin-generator-script
           configMap:
-            name: hello-plugin-script
+            name: env-var-plugin-generator-script

@@ -7,6 +7,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
 
-COPY python_plugin.py /python_plugin.py
+COPY main.py /main.py
 
-ENTRYPOINT ["python", "/python_plugin.py"]
+ENTRYPOINT ["python", "/main.py"]

@@ -7,7 +7,7 @@ resources:
   - manifests/service.yaml
 
 configMapGenerator:
-  - name: hello-plugin-script
-    namespace: applicationset-hello-plugin
+  - name: env-var-plugin-generator-script
+    namespace: argocd
     files:
       - main.py=main.py
