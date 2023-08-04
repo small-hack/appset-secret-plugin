@@ -7,7 +7,11 @@ This is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs
 
 First, install Argo CD on your cluster.
 
-Second, install the plugin generator's manifests. The manifests assume that Argo CD is installed in the `argocd` namespace, and you want to install the plugin generator inthe same namespace.
+Second, install the plugin generator's manifests. The manifests assume that Argo CD is installed in the `argocd` namespace, and you want to install the plugin generator in the same namespace.
+
+```bash
+kustomize build | kubectl apply -f -
+```
 
 Here's an example k8s secret that we would reference:
 ```yaml
