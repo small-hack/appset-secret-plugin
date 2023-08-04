@@ -52,7 +52,7 @@ spec:
       project: default
       source:
         repoURL: https://github.com/argoproj/argocd-example-apps.git
-        path: .
+        path: guestbook
       destination:
         server: https://kubernetes.default.svc
         namespace: default
