@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: applicationset-hello-plugin
+  namespace: argocd
+data:
+  token: '$applicationset-hello-plugin:token'
+  baseUrl: "http://applicationset-hello-plugin.applicationset-hello-plugin.svc.cluster.local"
