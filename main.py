@@ -59,7 +59,7 @@ class Plugin(BaseHTTPRequestHandler):
                      f"env var: {env_var_name}")
 
             if not env_var_name.startswith("ARGOCD_ENV_VAR_PLUGIN_"):
-                log.warn("Argo CD Env Var Plugin Generator only returns "
+                log.warning("Argo CD Env Var Plugin Generator only returns "
                          "requests for environment variables that start with "
                          "ARGOCD_ENV_VAR_PLUGIN_")
             else:
