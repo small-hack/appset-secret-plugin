@@ -1,5 +1,4 @@
 resources:
-  - manifests/applicationset-secret.yaml
   - manifests/configmap.yaml
   - manifests/deployment.yaml
   - manifests/namespace.yaml
