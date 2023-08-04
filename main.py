@@ -16,7 +16,7 @@ class Plugin(BaseHTTPRequestHandler):
 
     def args(self):
         """
-        this just gets the args requested
+        this just gets the args requested, I thought
         """
         return loads(self.rfile.read(int(self.headers.get('Content-Length'))))
 
@@ -53,6 +53,8 @@ class Plugin(BaseHTTPRequestHandler):
         # list of dictionaries to return like {"envvar": "envar_value"}
         return_list = []
 
+        log.info(env_var_names)
+
         # iterate through requested environment variables
         for env_var_name in env_var_names:
             log.info("Argo CD Env Var Plugin Generator recieved request for "
@@ -76,9 +78,12 @@ class Plugin(BaseHTTPRequestHandler):
 
         if self.path == '/api/v1/getparams.execute':
             args = self.args()
-            log.info(f"Argo CD Env Var full args payload: {args}")
 
-            return_params = self.return_env_vars(args)
+            try:
+                env_vars = args['input']['parameters']['env_vars']
+                return_params = self.return_env_vars(env_vars)
+            except Exception as e:
+                log.error(f"{e}, We require input to run this plugin!")
 
             # reply with all variables requested
             env_var_dictionary = {"output": {"parameters": return_params}}
