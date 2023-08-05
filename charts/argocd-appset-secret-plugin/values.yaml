@@ -7,7 +7,7 @@ replicaCount: 1
 
 image:
   # -- image repo to use for the docker container
-  repository: jessebot/appset-secret-generator-plugin
+  repository: jessebot/appset-secret-plugin
   # -- image pullPolicy for the main container
   pullPolicy: IfNotPresent
   # -- Overrides the image tag whose default is the chart appVersion.
