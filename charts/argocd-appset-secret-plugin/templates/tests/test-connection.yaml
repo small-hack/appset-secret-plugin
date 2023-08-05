@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "appset-env-generator-plugin.fullname" . }}-test-connection"
+  name: "{{ include "argocd-appset-secret-plugin.fullname" . }}-test-connection"
   labels:
-    {{- include "appset-env-generator-plugin.labels" . | nindent 4 }}
+    {{- include "argocd-appset-secret-plugin.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
 spec:
@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "appset-env-generator-plugin.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "argocd-appset-secret-plugin.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
