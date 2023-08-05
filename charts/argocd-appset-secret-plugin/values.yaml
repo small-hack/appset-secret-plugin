@@ -26,11 +26,14 @@ serviceAccount:
   # a name is generated using the fullname template
   name: ""
 
+# -- any additional annotations you'd like the pod to have
 podAnnotations: {}
 
+# -- securityContext for the pod: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 podSecurityContext: {}
   # fsGroup: 2000
 
+# -- securityContext for the container: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 securityContext: {}
   # capabilities:
   #   drop:
@@ -41,7 +44,9 @@ securityContext: {}
 
 service:
   type: ClusterIP
+  # -- service port to expose on the cluster
   port: 80
+  # -- service target port on the container
   targetPort: 4355
 
 resources: {}
@@ -57,6 +62,7 @@ resources: {}
   #   memory: 128Mi
 
 autoscaling:
+  # -- if you're feeling brave, why not try enabling autoscaling? untested
   enabled: false
   minReplicas: 1
   maxReplicas: 100

@@ -18,20 +18,20 @@ openssl rand -base64 12 > token && export PLUGIN_TOKEN=`/bin/cat token`
 Create some test values you'd like to get in your fake ApplicationSet:
 
 ```bash
-echo 'param1: "success"' > secret-vars.yaml
+echo 'param1: "success"' > secret_vars.yaml
 ```
 
 Run the docker container:
 
 ```bash
 docker run \
-  -v ./secret-vars.yaml:/var/run/argocd/secret-vars.yaml \
+  -v ./secret_vars.yaml:/var/run/argocd/secret_vars.yaml \
   -v ./token:/var/run/argocd/token \
   -p 4355:4355 \
   jessebot/argocd-appset-secret-plugin:dev
 ```
 
-Send a request for a vairable in your secret-vars.yaml:
+Send a request for a vairable in your secret_vars.yaml:
 
 ```bash
 curl http://localhost:4355/api/v1/getparams.execute -H "Authorization: Bearer $PLUGIN_TOKEN" -d \

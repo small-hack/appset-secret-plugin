@@ -1,15 +1,21 @@
 # argocd-appset-secret-plugin
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
 
 A Helm chart for adding a K8s Secret Plugin Generator to ApplicationSets
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| jessebot | <jessebot@linux.com> | <https://github.com/jessebot/> |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| autoscaling.enabled | bool | `false` |  |
+| autoscaling.enabled | bool | `false` | if you're feeling brave, why not try enabling autoscaling? untested |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
@@ -20,13 +26,13 @@ A Helm chart for adding a K8s Secret Plugin Generator to ApplicationSets
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
-| podAnnotations | object | `{}` |  |
-| podSecurityContext | object | `{}` |  |
+| podAnnotations | object | `{}` | any additional annotations you'd like the pod to have |
+| podSecurityContext | object | `{}` | securityContext for the pod: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | replicaCount | int | `1` | number of replica pods to create |
 | resources | object | `{}` |  |
-| securityContext | object | `{}` |  |
-| service.port | int | `80` |  |
-| service.targetPort | int | `4355` |  |
+| securityContext | object | `{}` | securityContext for the container: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
+| service.port | int | `80` | service port to expose on the cluster |
+| service.targetPort | int | `4355` | service target port on the container |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
