@@ -20,7 +20,7 @@ on:
 
 jobs:
   docker-amd64:
-    environment: 'docker-amd64'
+    environment: 'docker'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
