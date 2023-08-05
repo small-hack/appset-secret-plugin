@@ -14,7 +14,7 @@ This is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs
 For helm, see the [README](./charts/argocd-appset-secret-plugin/README.md) for full details of the allowed values in values.yaml, but this is the gist:
 
 ```bash
-helm repo add appset-secret-plugin repo_url
+helm repo add appset-secret-plugin https://jessebot.github.io/argocd-appset-secret-plugin
 helm install my-release appset-secret-plugin
 ```
 
