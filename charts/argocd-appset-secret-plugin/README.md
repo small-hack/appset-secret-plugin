@@ -4,6 +4,12 @@
 
 A Helm chart for adding a K8s Secret Plugin Generator to ApplicationSets
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| jessebot | <jessebot@linux.com> | <https://github.com/jessebot/> |
+
 ## Values
 
 | Key | Type | Default | Description |

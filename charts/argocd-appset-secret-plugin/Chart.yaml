@@ -1,6 +1,10 @@
 apiVersion: v2
 name: argocd-appset-secret-plugin
 description: A Helm chart for adding a K8s Secret Plugin Generator to ApplicationSets
+maintainers:
+  - name: "jessebot"
+    email: "jessebot@linux.com"
+    url: "https://github.com/jessebot/"
 
 # A chart can be either an 'application' or a 'library' chart.
 #
