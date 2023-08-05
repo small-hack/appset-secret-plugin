@@ -39,10 +39,10 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: token
-              mountPath: "/var/run/argo/token"
+              mountPath: "/var/run/argocd/token"
               readOnly: true
             - name: allowed-secret-vars
-              mountPath: "/var/run/argo/secret_vars.yaml"
+              mountPath: "/var/run/argocd/secret_vars.yaml"
               subPath: secret_vars.yaml
               readOnly: true
           livenessProbe:
