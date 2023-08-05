@@ -18,6 +18,10 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+secretVars:
+  # --  the name of the secret to use for your applicationSet parameters
+  secretName: argocd-secret-vars
+
 serviceAccount:
   # -- Specifies whether a service account should be created
   create: true

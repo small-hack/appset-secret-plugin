@@ -31,11 +31,12 @@ metadata:
   namespace: argocd
   labels:
     app.kubernetes.io/part-of: argocd
-type: Opaque
+type: stringData
 data:
-  # The secret value must be base64 encoded **once**.
-  # This value corresponds to: `printf "beepboop" | base64`.
-  app_name: "YmVlcGJvb3A="
+  secret_vars.yaml: |
+    # The secret value must be base64 encoded **once**.
+    # This value corresponds to: `printf "beepboop" | base64`.
+    app_name: "YmVlcGJvb3A="
 ```
 
 Here's an example ApplicationSet, using the secret plugin generator, to apply:

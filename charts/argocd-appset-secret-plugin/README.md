@@ -30,6 +30,7 @@ A Helm chart for adding a K8s Secret Plugin Generator to ApplicationSets
 | podSecurityContext | object | `{}` | securityContext for the pod: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | replicaCount | int | `1` | number of replica pods to create |
 | resources | object | `{}` |  |
+| secretVars.secretName | string | `"argocd-secret-vars"` | the name of the secret to use for your applicationSet parameters |
 | securityContext | object | `{}` | securityContext for the container: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | service.port | int | `80` | service port to expose on the cluster |
 | service.targetPort | int | `4355` | service target port on the container |

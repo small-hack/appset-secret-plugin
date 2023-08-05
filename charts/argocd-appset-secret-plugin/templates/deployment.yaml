@@ -41,9 +41,8 @@ spec:
             - name: token
               mountPath: "/var/run/argocd"
               readOnly: true
-            - name: allowed-secret-vars
-              mountPath: "/var/run/argocd/secret_vars.yaml"
-              subPath: secret_vars.yaml
+            - name: secret-vars
+              mountPath: "/var/run/secret-plugin"
               readOnly: true
           livenessProbe:
             httpGet:
@@ -59,9 +58,9 @@ spec:
         - name: token
           secret:
             secretName: {{ include "argocd-appset-secret-plugin.fullname" . }}-token
-        - name: allowed-secret-vars
+        - name: secret-vars
           secret:
-            secretName: argocd-secret-vars
+            secretName: {{ .Values.secretVars.secretName }}
             optional: true
       {{- with .Values.nodeSelector }}
       nodeSelector:
