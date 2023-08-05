@@ -13,7 +13,7 @@ import yaml
 with open("/var/run/argocd/token") as f:
     TOKEN = f.read().strip()
 
-with open("/var/run/argocd/secret-vars.yaml") as yaml_file:
+with open("/var/run/argocd/secret_vars.yaml") as yaml_file:
     SECRET_VARS = yaml.safe_load(yaml_file)
 
 class Plugin(BaseHTTPRequestHandler):
