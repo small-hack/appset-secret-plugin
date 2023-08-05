@@ -1,4 +1,6 @@
 # Argo CD ApplicationSet Secret Plugin Generator Container
+This is the docker image for this plugin, which is published to:
+https://hub.docker.com/r/jessebot/argocd-appset-secret-plugin
 
 ## Building
 
