@@ -1,7 +1,6 @@
 resources:
   - manifests/configmap.yaml
   - manifests/deployment.yaml
-  - manifests/plugin-secret.yaml
   - manifests/service.yaml
 
 configMapGenerator:
@@ -9,3 +8,8 @@ configMapGenerator:
     namespace: argocd
     files:
       - main.py=main.py
+
+secretGenerator:
+  - name: arogocd-generator-plugin-token
+    literals:
+      - token=supersecret

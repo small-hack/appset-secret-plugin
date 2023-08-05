@@ -13,8 +13,17 @@ We will only fetch environment variables beginning with `ARGOCD_ENV_VAR_PLUGIN_`
 
 </details>
 
+Second, clone the repo and modify the [kustomize.yaml](./kustomization.yaml) secretGenerator section to be a better token than `supersecret`:
+
+```yaml
+secretGenerator:
+  - name: arogocd-generator-plugin-token
+    literals:
+      - token=supersecret
+```
+
 <details>
-  <summary>Second, install the plugin generator's manifests using the below command. See more.</summary>
+  <summary>Third, install the plugin generator's manifests using the below command. See more.</summary>
 
 The manifests assume that Argo CD is installed in the `argocd` namespace, and you want to install the plugin generator in the same namespace. This kustomize command will [generate a `ConfigMap`](https://github.com/jessebot/argocd-applicationset-env-var-plugin/blob/main/kustomization.yaml#L7) with the [main.py](./main.py) in this repo, to be used for the ENTRYPOINT script for the Docker container in the small [deployment](./manifests/deployment.yaml) we create.
 
