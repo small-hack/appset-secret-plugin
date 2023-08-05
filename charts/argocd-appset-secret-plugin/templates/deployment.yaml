@@ -40,7 +40,6 @@ spec:
           volumeMounts:
             - name: token
               mountPath: "/var/run/argo/token"
-              subPath: token
               readOnly: true
             - name: allowed-secret-vars
               mountPath: "/var/run/argo/secret_vars.yaml"
