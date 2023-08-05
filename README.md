@@ -9,7 +9,7 @@ We will only fetch environment variables beginning with `ARGOCD_ENV_VAR_PLUGIN_`
 <details>
   <summary>First, install Argo CD on your cluster. See More.</summary>
   
-  This feature is currently only available in an (unsupported) pre-release state. We last tested this with `v2.8.0-rc7`. To use a(n unsupported) pre-release, like `v2.8.0-rc7` with helm, override the `global.image.tag` parameter with the version of your choice in your values.yaml. Then, make sure you grab the updated ApplicationSet CRD for the tag you want to use e.g. [`v2.8.0-rc7`](https://github.com/argoproj/argo-cd/tree/v2.8.0-rc7/manifests/crds).
+  This feature is currently only available in an (unsupported) pre-release state. We last tested this with `v2.8.0-rc7` which is the newest at time of writing. Check the [Releases page](https://github.com/argoproj/argo-cd/releases) for the latest version. To use a(n unsupported) pre-release, like `v2.8.0-rc7` with helm, override the `global.image.tag` parameter with the version of your choice in your values.yaml. Then, make sure you grab the updated ApplicationSet CRD for the tag you want to use e.g. [`v2.8.0-rc7`](https://github.com/argoproj/argo-cd/tree/v2.8.0-rc7/manifests/crds).
 
 </details>
 
