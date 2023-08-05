@@ -39,7 +39,7 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: token
-              mountPath: "/var/run/argocd/token"
+              mountPath: "/var/run/argocd"
               readOnly: true
             - name: allowed-secret-vars
               mountPath: "/var/run/argocd/secret_vars.yaml"
