@@ -20,3 +20,55 @@ helm install my-release appset-secret-plugin
 
 ### Install with Kustomize
 See the [README](./kustomize/README.md) in the kustomize directory.
+
+# Testing
+You can create a Kubernetes Secret for your queriable variables, like this:
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-secret-vars
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: argocd
+type: Opaque
+data:
+  # The secret value must be base64 encoded **once**.
+  # This value corresponds to: `printf "beepboop" | base64`.
+  app_name: "YmVlcGJvb3A="
+```
+
+Here's an example ApplicationSet, using the secret plugin generator, to apply:
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: my-application-set
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - plugin:
+        configMapRef:
+          name: secret-plugin-generator
+        input:
+          parameters:
+            secret_vars: ["app_name"]
+  template:
+    metadata:
+      name: "from-appset-{{.app_name}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/argoproj/argocd-example-apps.git
+        path: guestbook
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: default
+```
+
+You can apply the example ApplicationSet and Secret with:
+
+```bash
+kubectl apply -f example/appset_and_secret.yaml
+```
