@@ -1,19 +1,30 @@
 # ApplicationSet Environment Variable Plugin Generator
-This is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Plugin/) to fetch environment variables from an existing Kubernetes Secret, called `argocd-env-vars` by default.
+This is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Plugin/) (_only available in Argo CD `v2.8.0` or newer_) to fetch environment variables from an existing Kubernetes Secret, called `argocd-env-vars` by default.
 
-**NOTE**: We will only fetch environment variables beginning with `ARGOCD_ENV_VAR_PLUGIN_`.
+**NOTE**
+We will only fetch environment variables beginning with `ARGOCD_ENV_VAR_PLUGIN_`.
 
 ## Testing
 
-First, install Argo CD on your cluster.
+<details>
+  <summary>First, install Argo CD on your cluster. See More.</summary>
+  
+  This feature is currently only available in an (unsupported) pre-release state. We last tested this with `v2.8.0-rc7`. To use a(n unsupported) pre-release, like `v2.8.0-rc7` with helm, override the `global.image.tag` parameter with the version of your choice in your values.yaml. Then, make sure you grab the updated ApplicationSet CRD for the tag you want to use e.g. [`v2.8.0-rc7`](https://github.com/argoproj/argo-cd/tree/v2.8.0-rc7/manifests/crds).
 
-Second, install the plugin generator's manifests. The manifests assume that Argo CD is installed in the `argocd` namespace, and you want to install the plugin generator in the same namespace.
+</details>
+
+<details>
+  <summary>Second, install the plugin generator's manifests using the below command. See more.</summary>
+
+The manifests assume that Argo CD is installed in the `argocd` namespace, and you want to install the plugin generator in the same namespace. This kustomize command will [generate a `ConfigMap`](https://github.com/jessebot/argocd-applicationset-env-var-plugin/blob/main/kustomization.yaml#L7) with the [main.py](./main.py) in this repo, to be used for the ENTRYPOINT script for the Docker container in the small [deployment](./manifests/deployment.yaml) we create.
+
+</details>
 
 ```bash
 kustomize build | kubectl apply -f -
 ```
 
-Here's an example k8s secret that we would reference:
+Finally, you can create a Kubernetes Secret for your variables, like this:
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -29,7 +40,7 @@ data:
   ARGOCD_ENV_VAR_PLUGIN_APP_NAME: "YmVlcGJvb3A="
 ```
 
-Here's an example ApplicationSet to apply:
+Here's an example ApplicationSet, using the generator, to apply:
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
@@ -57,7 +68,6 @@ spec:
         server: https://kubernetes.default.svc
         namespace: default
 ```
-
 You can apply the example ApplicationSet and Secret with:
 
 ```bash
