@@ -3,12 +3,6 @@ resources:
   - manifests/deployment.yaml
   - manifests/service.yaml
 
-configMapGenerator:
-  - name: env-var-plugin-generator-script
-    namespace: argocd
-    files:
-      - main.py=main.py
-
 secretGenerator:
   - name: arogocd-generator-plugin-token
     literals:

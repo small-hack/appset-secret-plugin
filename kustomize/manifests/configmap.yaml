@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: env-var-plugin-generator
+  name: secret-plugin-generator
   namespace: argocd
 data:
   token: '$arogocd-generator-plugin-token:token'

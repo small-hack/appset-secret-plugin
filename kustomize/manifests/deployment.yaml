@@ -2,43 +2,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: argocd-env-var-plugin-generator
+  name: argocd-secret-plugin-generator
   namespace: argocd
   labels:
-    app.kubernetes.io/name: argocd-env-var-plugin-generator
+    app.kubernetes.io/name: argocd-secret-plugin-generator
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: argocd-env-var-plugin-generator
+      app.kubernetes.io/name: argocd-secret-plugin-generator
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: argocd-env-var-plugin-generator
+        app.kubernetes.io/name: argocd-secret-plugin-generator
     spec:
       containers:
-        - name: argocd-env-var-plugin-generator
-          image: python:latest
-          command: ["python"]
-          args: ["/app/main.py"]
+        - name: argocd-secret-plugin-generator
+          image: jessebot/argocd-appset-secret-plugin:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 4355
               name: http
-          env:
-            - name: TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: arogocd-generator-plugin-token
-                  key: token
-          envFrom:
-            - secretRef:
-                name: argocd-env-vars
           volumeMounts:
-            - name: env-var-plugin-generator-script
-              mountPath: "/app/main.py"
-              subPath: "main.py"
+            - name: token
+              mountPath: "/var/run/argocd/token"
+              subPath: "token"
+            - name: argocd-secret-vars
+              mountPath: "/var/run/argocd/secret-vars.yaml"
+              subPath: "secret-vars.yaml"
       volumes:
-        - name: env-var-plugin-generator-script
-          configMap:
-            name: env-var-plugin-generator-script
+        - name: token
+          secret:
+            secretName: arogocd-generator-plugin-token
+        - name: argocd-secret-vars
+          secret:
+            secretName: argocd-secret-vars
