@@ -44,14 +44,6 @@ spec:
             - name: secret-vars
               mountPath: "/var/run/secret-plugin"
               readOnly: true
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -61,7 +53,6 @@ spec:
         - name: secret-vars
           secret:
             secretName: {{ .Values.secretVars.secretName }}
-            optional: true
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
