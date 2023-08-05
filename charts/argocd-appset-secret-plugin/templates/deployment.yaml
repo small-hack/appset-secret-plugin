@@ -41,9 +41,11 @@ spec:
             - name: token
               mountPath: "/var/run/argo/token"
               subPath: token
-            - name: allowed-env-vars
+              readOnly: true
+            - name: allowed-secret-vars
               mountPath: "/var/run/argo/secret_vars.yaml"
               subPath: secret_vars.yaml
+              readOnly: true
           livenessProbe:
             httpGet:
               path: /
@@ -58,9 +60,10 @@ spec:
         - name: token
           secret:
             secretName: {{ include "argocd-appset-secret-plugin.fullname" . }}-token
-        - name: allowed-env-vars
+        - name: allowed-secret-vars
           secret:
-            secretName: argocd-env-vars
+            secretName: argocd-secret-vars
+            optional: true
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
