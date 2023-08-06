@@ -59,24 +59,10 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-
 {{/*
-
-curl http://localhost:4355/api/v1/getparams.execute -H "Authorization: Bearer $PLUGIN_TOKEN" -d \
-'{
-  "applicationSetName": "fake-appset",
-  "input": {
-    "parameters": {
-      "secret_vars": ["param1"]}
-  }
-}'
-
-http://{{ include "argocd-appset-secret-plugin.fullname" . }}/api/v1/getparams.execute -H  \"Content-type:application/json\" -H \"Authorization: Bearer $TOKEN\" --data-urlencode \"{\"applicationSetName\": \"fake-appset\", \"input\": {\"parameters\": {\"secret_vars\": [\"app_name\"]}}}\"
+Create the name of the token secret to use: either from an existing secret
+or the fullname of the chart + "-token"
 */}}
-{{- define "argocd-appset-secret-plugin.testCommand" -}}
-http://{{ include "argocd-appset-secret-plugin.fullname" . }}/api/v1/getparams.execute -H \"Authorization: Bearer $TOKEN\" -d \"{\"applicationSetName\": \"fake-appset\"}\"
-{{- end }}
-
 {{- define "argocd-appset-secret-plugin.tokenSecret" -}}
 {{- if not .Values.token.existingSecret }}
 {{- printf "%s-token" (include "argocd-appset-secret-plugin.fullname" .) }}
@@ -85,6 +71,10 @@ http://{{ include "argocd-appset-secret-plugin.fullname" . }}/api/v1/getparams.e
 {{- end }}
 {{- end }}
 
+{{/*
+Create the name of the vars secret to use: either from an existing secret
+or the fullname of the chart + "-secret-vars"
+*/}}
 {{- define "argocd-appset-secret-plugin.varSecret" -}}
 {{- if not .Values.secretVars.existingSecret }}
 {{- printf "%s-secret-vars" (include "argocd-appset-secret-plugin.fullname" .) }}
