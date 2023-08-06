@@ -28,8 +28,8 @@ spec:
               mountPath: "/var/run/argocd/token"
               subPath: "token"
             - name: argocd-secret-vars
-              mountPath: "/var/run/argocd/secret-vars.yaml"
-              subPath: "secret-vars.yaml"
+              mountPath: "/var/run/argocd/secret_vars.yaml"
+              subPath: "secret_vars.yaml"
       volumes:
         - name: token
           secret:

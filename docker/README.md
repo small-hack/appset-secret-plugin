@@ -12,7 +12,7 @@ docker build . -t jessebot/argocd-appset-secret-plugin:dev
 
 Generate a fake token
 ```bash
-openssl rand -base64 12 > token && export PLUGIN_TOKEN=`/bin/cat token`
+openssl rand -base64 12 > token && export TOKEN=`/bin/cat token`
 ```
 
 Create some test values you'd like to get in your fake ApplicationSet:
@@ -25,7 +25,7 @@ Run the docker container:
 
 ```bash
 docker run \
-  -v ./secret_vars.yaml:/var/run/argocd/secret_vars.yaml \
+  -v ./secret_vars.yaml:/var/run/secret-plugin/secret_vars.yaml \
   -v ./token:/var/run/argocd/token \
   -p 4355:4355 \
   jessebot/argocd-appset-secret-plugin:dev
@@ -34,7 +34,7 @@ docker run \
 Send a request for a vairable in your secret_vars.yaml:
 
 ```bash
-curl http://localhost:4355/api/v1/getparams.execute -H "Authorization: Bearer $PLUGIN_TOKEN" -d \
+curl http://localhost:4355/api/v1/getparams.execute -H "Authorization: Bearer $TOKEN" -d \
 '{
   "applicationSetName": "fake-appset",
   "input": {

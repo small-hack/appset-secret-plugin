@@ -56,7 +56,29 @@ Create the name of the service account to use
 {{- define "argocd-appset-secret-plugin.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
 {{- default (include "argocd-appset-secret-plugin.fullname" .) .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the name of the token secret to use: either from an existing secret
+or the fullname of the chart + "-token"
+*/}}
+{{- define "argocd-appset-secret-plugin.tokenSecret" -}}
+{{- if not .Values.token.existingSecret }}
+{{- printf "%s-token" (include "argocd-appset-secret-plugin.fullname" .) }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{ .Values.token.existingSecret }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the name of the vars secret to use: either from an existing secret
+or the fullname of the chart + "-secret-vars"
+*/}}
+{{- define "argocd-appset-secret-plugin.varSecret" -}}
+{{- if not .Values.secretVars.existingSecret }}
+{{- printf "%s-secret-vars" (include "argocd-appset-secret-plugin.fullname" .) }}
+{{- else }}
+{{ .Values.secretVars.existingSecret }}
 {{- end }}
 {{- end }}

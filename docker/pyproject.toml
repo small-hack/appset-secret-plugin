@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "argocd-appset-secret-plugin"
+version = "0.1.2"
+description = "a K8s Secret Plugin Generator to ApplicationSets in Argo CD"
+authors = ["jessebot <jessebot@linux.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "argocd_appset_secret_plugin"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+PyYAML = "^6.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
