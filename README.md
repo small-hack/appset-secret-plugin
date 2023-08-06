@@ -34,9 +34,7 @@ metadata:
 type: stringData
 data:
   secret_vars.yaml: |
-    # The secret value must be base64 encoded **once**.
-    # This value corresponds to: `printf "beepboop" | base64`.
-    app_name: "YmVlcGJvb3A="
+    app_name: "beepboop"
 ```
 
 Here's an example ApplicationSet, using the secret plugin generator, to apply:
