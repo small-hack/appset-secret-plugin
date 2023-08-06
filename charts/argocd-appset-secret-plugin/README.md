@@ -30,7 +30,7 @@ A Helm chart for adding a K8s Secret Plugin Generator to ApplicationSets
 | podSecurityContext | object | `{}` | securityContext for the pod: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | replicaCount | int | `1` | number of replica pods to create |
 | resources | object | `{}` |  |
-| secretVars.secretName | string | `"argocd-secret-vars"` | the name of the secret to use for your applicationSet parameters |
+| secretVars.existingSecret | string | `""` | the name of an existing secret to use for the secret keys to provide to applicationSets via the plugin generator |
 | securityContext | object | `{}` | securityContext for the container: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | service.port | int | `80` | service port to expose on the cluster |
 | service.targetPort | int | `4355` | service target port on the container |
@@ -38,6 +38,7 @@ A Helm chart for adding a K8s Secret Plugin Generator to ApplicationSets
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
+| token.existingSecret | string | `""` | the name of an existing secret to use for the token that argoCD and the plugin will use for communication |
 | tolerations | list | `[]` |  |
 
 ----------------------------------------------

@@ -56,7 +56,39 @@ Create the name of the service account to use
 {{- define "argocd-appset-secret-plugin.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
 {{- default (include "argocd-appset-secret-plugin.fullname" .) .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+
+{{/*
+
+curl http://localhost:4355/api/v1/getparams.execute -H "Authorization: Bearer $PLUGIN_TOKEN" -d \
+'{
+  "applicationSetName": "fake-appset",
+  "input": {
+    "parameters": {
+      "secret_vars": ["param1"]}
+  }
+}'
+
+http://{{ include "argocd-appset-secret-plugin.fullname" . }}/api/v1/getparams.execute -H  \"Content-type:application/json\" -H \"Authorization: Bearer $TOKEN\" --data-urlencode \"{\"applicationSetName\": \"fake-appset\", \"input\": {\"parameters\": {\"secret_vars\": [\"app_name\"]}}}\"
+*/}}
+{{- define "argocd-appset-secret-plugin.testCommand" -}}
+http://{{ include "argocd-appset-secret-plugin.fullname" . }}/api/v1/getparams.execute -H \"Authorization: Bearer $TOKEN\" -d \"{\"applicationSetName\": \"fake-appset\"}\"
+{{- end }}
+
+{{- define "argocd-appset-secret-plugin.tokenSecret" -}}
+{{- if not .Values.token.existingSecret }}
+{{- printf "%s-token" (include "argocd-appset-secret-plugin.fullname" .) }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{ .Values.token.existingSecret }}
+{{- end }}
+{{- end }}
+
+{{- define "argocd-appset-secret-plugin.varSecret" -}}
+{{- if not .Values.secretVars.existingSecret }}
+{{- printf "%s-secret-vars" (include "argocd-appset-secret-plugin.fullname" .) }}
+{{- else }}
+{{ .Values.secretVars.existingSecret }}
 {{- end }}
 {{- end }}

@@ -19,8 +19,12 @@ nameOverride: ""
 fullnameOverride: ""
 
 secretVars:
-  # --  the name of the secret to use for your applicationSet parameters
-  secretName: argocd-secret-vars
+  # -- the name of an existing secret to use for the secret keys to provide to applicationSets via the plugin generator
+  existingSecret: ""
+
+token:
+  # -- the name of an existing secret to use for the token that argoCD and the plugin will use for communication
+  existingSecret: ""
 
 serviceAccount:
   # -- Specifies whether a service account should be created
