@@ -11,11 +11,17 @@ This is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs
 </details>
 
 ### Install with helm
-For helm, see the [README](./charts/argocd-appset-secret-plugin/README.md) for full details of the allowed values in values.yaml, but this is the gist:
+For helm, see the [README](./charts/argocd-appset-secret-plugin/README.md) for full details of the allowed values in values.yaml, but this is the gist for testing:
 
 ```bash
 helm repo add appset-secret-plugin https://jessebot.github.io/argocd-appset-secret-plugin
-helm install my-release appset-secret-plugin
+helm install my-release-name appset-secret-plugin
+```
+
+You'll likely want to pass in a value for an existing Kubernetes Secret containing your secret keys you want to be available to the Plugin Generator. To do that, let's say the name of your Kubernetes Secret is `my-secret-name`, you can try this:
+
+```bash
+helm install my-release-name appset-secret-plugin --set secretVars.existingSecret=my-secret-name
 ```
 
 ### Install with Kustomize
@@ -71,3 +77,6 @@ You can apply the example ApplicationSet and Secret with:
 ```bash
 kubectl apply -f example/appset_and_secret.yaml
 ```
+
+### Status
+This is an alpha project still, but I'm working on getting to beta. Please open a GitHub Issue with your method of installation, your distro of k8s and the version of your k8s tooling (kustomize, helm, etc), if you're having any trouble.
