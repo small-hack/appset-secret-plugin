@@ -13,14 +13,14 @@ This is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs
 ### Install with helm
 For helm, see the [README](./charts/argocd-appset-secret-plugin/README.md) for full details of the allowed values in values.yaml, but this is the gist for testing:
 
-```bash
+```console
 helm repo add appset-secret-plugin https://jessebot.github.io/argocd-appset-secret-plugin
 helm install my-release-name appset-secret-plugin
 ```
 
 You'll likely want to pass in a value for an existing Kubernetes Secret containing your secret keys you want to be available to the Plugin Generator. To do that, let's say the name of your Kubernetes Secret is `my-secret-name`, you can try this:
 
-```bash
+```console
 helm install my-release-name appset-secret-plugin --set secretVars.existingSecret=my-secret-name
 ```
 
