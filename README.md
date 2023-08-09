@@ -17,13 +17,14 @@ For helm, see the [README](./charts/argocd-appset-secret-plugin/README.md) for f
 
 ```console
 helm repo add appset-secret-plugin https://jessebot.github.io/argocd-appset-secret-plugin
-helm install my-release-name appset-secret-plugin
+helm install my-release-name appset-secret-plugin/argocd-appset-secret-plugin
 ```
 
 You'll likely want to pass in a value for an existing Kubernetes Secret containing your secret keys you want to be available to the Plugin Generator. To do that, let's say the name of your Kubernetes Secret is `my-secret-name`, you can try this:
 
 ```console
-helm install my-release-name appset-secret-plugin --set secretVars.existingSecret=my-secret-name
+helm install my-release-name appset-secret-plugin/argocd-appset-secret-plugin \
+   --set secretVars.existingSecret=my-secret-name
 ```
 
 ### Install with Kustomize
