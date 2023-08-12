@@ -1,7 +1,7 @@
 # ApplicationSet Secret Plugin Generator
 <a href="https://github.com/jessebot/argocd-appset-secret-plugin/releases"><img src="https://img.shields.io/github/v/release/jessebot/argocd-appset-secret-plugin?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a>
 
-This is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Plugin/) (_only available in Argo CD `v2.8.0` or newer_) to fetch variables from an existing [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that is mounted as file in our plugin generator deployment.
+[argocd-appset-secret-plugin](https://github.com/jessebot/argocd-appset-secret-plugin) is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Plugin/) (_only available in Argo CD `v2.8.0` or newer_) to fetch variables from an existing [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that is mounted as file in our plugin generator deployment.
 
 ## Usage
 
