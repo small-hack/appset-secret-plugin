@@ -1,29 +1,24 @@
 # ApplicationSet Secret Plugin Generator
 <a href="https://github.com/jessebot/argocd-appset-secret-plugin/releases"><img src="https://img.shields.io/github/v/release/jessebot/argocd-appset-secret-plugin?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a>
 
-This is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Plugin/) (_only available in Argo CD `v2.8.0` or newer_) to fetch variables from an existing [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that is mounted as file in our plugin generator deployment.
+[argocd-appset-secret-plugin](https://github.com/jessebot/argocd-appset-secret-plugin) is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Plugin/) (_only available in Argo CD `v2.8.0` or newer_) to fetch variables from an existing [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that is mounted as file in our plugin generator deployment.
 
 ## Usage
-
-<details>
-  <summary>First, install Argo CD on your cluster. See More.</summary>
-
-  We last tested this with `v2.8.0-rc7` which is the newest at time of writing. Check the [Releases page](https://github.com/argoproj/argo-cd/releases) for the latest version.
-
-</details>
+First, [install Argo CD](https://argo-cd.readthedocs.io/en/stable/getting_started/#1-install-argo-cd) on your cluster.
 
 ### Install with helm
 For helm, see the [README](./charts/argocd-appset-secret-plugin/README.md) for full details of the allowed values in values.yaml, but this is the gist for testing:
 
 ```console
 helm repo add appset-secret-plugin https://jessebot.github.io/argocd-appset-secret-plugin
-helm install my-release-name appset-secret-plugin
+helm install my-release-name appset-secret-plugin/argocd-appset-secret-plugin
 ```
 
 You'll likely want to pass in a value for an existing Kubernetes Secret containing your secret keys you want to be available to the Plugin Generator. To do that, let's say the name of your Kubernetes Secret is `my-secret-name`, you can try this:
 
 ```console
-helm install my-release-name appset-secret-plugin --set secretVars.existingSecret=my-secret-name
+helm install my-release-name appset-secret-plugin/argocd-appset-secret-plugin \
+   --set secretVars.existingSecret=my-secret-name
 ```
 
 ### Install with Kustomize
