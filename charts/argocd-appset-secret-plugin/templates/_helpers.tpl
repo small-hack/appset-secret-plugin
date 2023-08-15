@@ -79,6 +79,6 @@ or the fullname of the chart + "-secret-vars"
 {{- if not .Values.secretVars.existingSecret }}
 {{- printf "%s-secret-vars" (include "argocd-appset-secret-plugin.fullname" .) }}
 {{- else }}
-{{ .Values.secretVars.existingSecret }}
+{{- .Values.secretVars.existingSecret }}
 {{- end }}
 {{- end }}
