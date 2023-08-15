@@ -4,13 +4,7 @@
 [argocd-appset-secret-plugin](https://github.com/jessebot/argocd-appset-secret-plugin) is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Plugin/) (_only available in Argo CD `v2.8.0` or newer_) to fetch variables from an existing [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that is mounted as file in our plugin generator deployment.
 
 ## Usage
-
-<details>
-  <summary>First, install Argo CD on your cluster. See More.</summary>
-
-  We last tested this with `v2.8.0-rc7` which is the newest at time of writing. Check the [Releases page](https://github.com/argoproj/argo-cd/releases) for the latest version.
-
-</details>
+First, [install Argo CD](https://argo-cd.readthedocs.io/en/stable/getting_started/#1-install-argo-cd) on your cluster.
 
 ### Install with helm
 For helm, see the [README](./charts/argocd-appset-secret-plugin/README.md) for full details of the allowed values in values.yaml, but this is the gist for testing:
