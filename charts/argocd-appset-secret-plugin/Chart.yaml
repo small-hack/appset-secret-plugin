@@ -16,11 +16,7 @@ maintainers:
 # pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
 
-# renovate: image=jessebot/argocd-appset-secret-plugin
-version: 0.2.1
+version: 0.2.2
 
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application. Versions are not expected to
-# follow Semantic Versioning. They should reflect the version the application is using.
-# It is recommended to use it with quotes.
+# renovate: image=jessebot/argocd-appset-secret-plugin
 appVersion: "0.1.2"
