@@ -71,6 +71,9 @@ or the fullname of the chart + "-token"
 {{- end }}
 {{- end }}
 
+{{/*
+Defining the token and base url values for the configmap
+*/}}
 {{- define "argocd-appset-secret-plugin.tokenConfigParam" -}}
 {{- printf "$%s:token" (include "argocd-appset-secret-plugin.tokenSecret" .) }}
 {{- end }}
