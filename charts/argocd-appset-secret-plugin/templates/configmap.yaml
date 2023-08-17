@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: secret-var-plugin-generator
+data:
+  token: {{ include "argocd-appset-secret-plugin.tokenConfigParam" . }}
+  baseUrl: {{ include "argocd-appset-secret-plugin.baseUrl" . }}

@@ -71,6 +71,14 @@ or the fullname of the chart + "-token"
 {{- end }}
 {{- end }}
 
+{{- define "argocd-appset-secret-plugin.tokenConfigParam" -}}
+{{- printf "$%s:token" (include "argocd-appset-secret-plugin.tokenSecret" .) }}
+{{- end }}
+
+{{- define "argocd-appset-secret-plugin.baseUrl" -}}
+{{- printf "http://%s.argocd.svc.cluster.local" (include "argocd-appset-secret-plugin.fullname" .) }}
+{{- end }}
+
 {{/*
 Create the name of the vars secret to use: either from an existing secret
 or the fullname of the chart + "-secret-vars"
