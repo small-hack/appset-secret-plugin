@@ -16,7 +16,7 @@ maintainers:
 # pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
 
-version: 0.2.2
+version: 0.2.3
 
 # renovate: image=jessebot/argocd-appset-secret-plugin
 appVersion: "0.1.2"
