@@ -62,12 +62,10 @@ class Plugin(BaseHTTPRequestHandler):
 
         # iterate through requested secret keys
         for secret_var in secret_var_names:
-            logging.info("Argo CD Secret Plugin Generator recieved request for "
-                         f"secret variable: {secret_var}")
-
             if secret_var not in SECRET_VARS:
                 logging.warning(f"Variable, '{secret_var}' does not exist")
             else:
+                logging.info(f"Found requested variable, '{secret_var}'")
                 # creates a dict with the requested secret key name and value
                 # then, appends it to the return_list
                 return_list.append({secret_var: SECRET_VARS[secret_var]})
@@ -75,13 +73,17 @@ class Plugin(BaseHTTPRequestHandler):
         return return_list
 
     def do_POST(self):
+        args = self.args()
+
+        logging.info(f"Argo CD Secret Plugin Generator recieved request: {args}")
+
         # if the token is invalid, throw a forbidden error
-        if self.headers.get("Authorization") != "Bearer " + TOKEN:
+        posted_auth = self.headers.get("Authorization")
+        if posted_auth != "Bearer " + TOKEN:
+            logging.error(f"Recieved bad token in header: {posted_auth}")
             self.forbidden()
 
         if self.path == '/api/v1/getparams.execute':
-            args = self.args()
-
             try:
                 secret_vars = args['input']['parameters']['secret_vars']
                 return_params = self.return_secret_vars(secret_vars)
