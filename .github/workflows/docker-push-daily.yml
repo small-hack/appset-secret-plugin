@@ -48,3 +48,4 @@ jobs:
             linux/arm64
           tags: | 
             jessebot/argocd-appset-secret-plugin:latest
+            jessebot/argocd-appset-secret-plugin:${{ github.ref }}
