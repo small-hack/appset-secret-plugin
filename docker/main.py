@@ -50,12 +50,12 @@ class Plugin(BaseHTTPRequestHandler):
         self.send_response(404)
         self.end_headers()
 
-    def return_secret_vars(self, secret_var_names: list):
+    def return_secret_vars(self, appset_name: str, secret_var_names: list):
         """
         Takes a list of string type keys in a secret to return
         """
 
-        # list of dictionaries to return like {"secret_var": "secret_value"}
+        # list of dictionaries to return like [{"secret_var": "secret_value"}]
         return_list = []
 
         logging.info(secret_var_names)
@@ -63,9 +63,12 @@ class Plugin(BaseHTTPRequestHandler):
         # iterate through requested secret keys
         for secret_var in secret_var_names:
             if secret_var not in SECRET_VARS:
-                logging.warning(f"Variable, '{secret_var}' does not exist")
+                msg = f"'{secret_var}' not found in secret vars. Requested by {appset_name}"
+                logging.warning(msg)
             else:
-                logging.info(f"Found requested variable, '{secret_var}'")
+                msg = (f"Found value for variable, '{secret_var}', as requested "
+                       f"by {appset_name}")
+                logging.info(msg)
                 # creates a dict with the requested secret key name and value
                 # then, appends it to the return_list
                 return_list.append({secret_var: SECRET_VARS[secret_var]})
@@ -74,19 +77,19 @@ class Plugin(BaseHTTPRequestHandler):
 
     def do_POST(self):
         args = self.args()
-
-        logging.info(f"Argo CD Secret Plugin Generator recieved request: {args}")
+        appset_name = args['applicationSetName']
 
         # if the token is invalid, throw a forbidden error
         posted_auth = self.headers.get("Authorization")
         if posted_auth != "Bearer " + TOKEN:
-            logging.error(f"Recieved bad token in header: {posted_auth}")
+            logging.error(f"Recieved auth header from argo during {appset_name}"
+                          f" request: '{posted_auth}'")
             self.forbidden()
 
         if self.path == '/api/v1/getparams.execute':
             try:
                 secret_vars = args['input']['parameters']['secret_vars']
-                return_params = self.return_secret_vars(secret_vars)
+                return_params = self.return_secret_vars(appset_name, secret_vars)
             except Exception as e:
                 logging.error(f"{e}, We require input to run this plugin! We got"
                               f"{secret_vars}")
