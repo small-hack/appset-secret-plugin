@@ -5,9 +5,13 @@ revisions by @jessebot and assumed to be whatever Argo's default license is
 """
 from json import loads, dumps
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from os import environ
-import logging as log
+import logging
 import yaml
+import sys
+
+logging.basicConfig(stream=sys.stdout,
+                    level=logging.DEBUG,
+                    format="%(asctime)s:%(levelname)s: %(message)s")
 
 # token should be mounted as a volume at run time
 with open("/var/run/argocd/token") as f:
@@ -54,15 +58,15 @@ class Plugin(BaseHTTPRequestHandler):
         # list of dictionaries to return like {"secret_var": "secret_value"}
         return_list = []
 
-        log.info(secret_var_names)
+        logging.info(secret_var_names)
 
         # iterate through requested secret keys
         for secret_var in secret_var_names:
-            log.info("Argo CD Secret Plugin Generator recieved request for "
-                     f"secret variable: {secret_var}")
+            logging.info("Argo CD Secret Plugin Generator recieved request for "
+                         f"secret variable: {secret_var}")
 
             if secret_var not in SECRET_VARS:
-                log.warning(f"Variable, '{secret_var}' does not exist")
+                logging.warning(f"Variable, '{secret_var}' does not exist")
             else:
                 # creates a dict with the requested secret key name and value
                 # then, appends it to the return_list
@@ -82,8 +86,8 @@ class Plugin(BaseHTTPRequestHandler):
                 secret_vars = args['input']['parameters']['secret_vars']
                 return_params = self.return_secret_vars(secret_vars)
             except Exception as e:
-                log.error(f"{e}, We require input to run this plugin! We got"
-                          f"{secret_vars}")
+                logging.error(f"{e}, We require input to run this plugin! We got"
+                              f"{secret_vars}")
 
             # reply with all variables requested
             reply_dictionary = {"output": {"parameters": return_params}}
