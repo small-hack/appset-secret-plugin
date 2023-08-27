@@ -83,8 +83,9 @@ class Plugin(BaseHTTPRequestHandler):
         posted_auth = self.headers.get("Authorization")
         expected_auth = f"Bearer {TOKEN}"
         if posted_auth != expected_auth:
-            logging.error(f"Recieved auth header from argo during {appset_name}"
-                          f" request: '{posted_auth}' that does not match {expected_auth}")
+            err = (f"Recieved auth header from argo during {appset_name} request:"
+                   f" '{posted_auth}' that does not match **REDACTED**")
+            logging.error(err)
             self.forbidden()
 
         if self.path == '/api/v1/getparams.execute':
@@ -92,11 +93,12 @@ class Plugin(BaseHTTPRequestHandler):
                 secret_vars = args['input']['parameters']['secret_vars']
                 return_params = self.return_secret_vars(appset_name, secret_vars)
             except Exception as e:
-                logging.error(f"{e}, We require input to run this plugin! We got"
-                              f"{secret_vars}")
+                err = f"{e}, We require input to run this plugin! We got {secret_vars}"
+                logging.error(err)
 
             # reply with all variables requested
             reply_dictionary = {"output": {"parameters": return_params}}
+            logging.info(f"replying to {appset_name} with {reply_dictionary}")
             self.reply(reply_dictionary)
         else:
             self.unsupported()
