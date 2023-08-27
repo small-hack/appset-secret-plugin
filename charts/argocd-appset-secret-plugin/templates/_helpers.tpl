@@ -67,7 +67,7 @@ or the fullname of the chart + "-token"
 {{- if not .Values.token.existingSecret }}
 {{- printf "%s-token" (include "argocd-appset-secret-plugin.fullname" .) }}
 {{- else }}
-{{ .Values.token.existingSecret }}
+{{- .Values.token.existingSecret }}
 {{- end }}
 {{- end }}
 
