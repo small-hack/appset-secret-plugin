@@ -55,25 +55,26 @@ class Plugin(BaseHTTPRequestHandler):
         Takes a list of string type keys in a secret to return
         """
 
-        # list of dictionaries to return like [{"secret_var": "secret_value"}]
-        return_list = []
+        # returns list of dict like [{"secret_var": "secret_value"}]
+        return_dict = {}
 
         logging.info(secret_var_names)
 
         # iterate through requested secret keys
         for secret_var in secret_var_names:
             if secret_var not in SECRET_VARS:
-                msg = f"'{secret_var}' not found in secret vars. Requested by {appset_name}"
+                msg = (f"'{secret_var}' not found in k8s secret, as requested by"
+                       f" {appset_name}")
                 logging.warning(msg)
             else:
-                msg = (f"Found value for variable, '{secret_var}', as requested "
-                       f"by {appset_name}")
+                msg = (f"Found value for variable, '{secret_var}', as requested"
+                       f" by {appset_name}")
                 logging.info(msg)
                 # creates a dict with the requested secret key name and value
                 # then, appends it to the return_list
-                return_list.append({secret_var: SECRET_VARS[secret_var]})
+                return_dict[secret_var] = SECRET_VARS[secret_var]
 
-        return return_list
+        return [return_dict]
 
     def do_POST(self):
         args = self.args()
