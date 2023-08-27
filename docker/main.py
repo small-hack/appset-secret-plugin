@@ -81,9 +81,10 @@ class Plugin(BaseHTTPRequestHandler):
 
         # if the token is invalid, throw a forbidden error
         posted_auth = self.headers.get("Authorization")
-        if posted_auth != "Bearer " + TOKEN:
+        expected_auth = f"Bearer {TOKEN}"
+        if posted_auth != expected_auth:
             logging.error(f"Recieved auth header from argo during {appset_name}"
-                          f" request: '{posted_auth}'")
+                          f" request: '{posted_auth}' that does not match {expected_auth}")
             self.forbidden()
 
         if self.path == '/api/v1/getparams.execute':
