@@ -86,10 +86,10 @@ Defining the token and base url values for the configmap
 Create the name of the vars secret to use: either from an existing secret
 or the fullname of the chart + "-secret-vars"
 */}}
-{{- define "argocd-appset-secret-plugin.varSecret" -}}
-{{- if not .Values.secretVars.existingSecret }}
+{{- define "argocd-appset-secret-plugin.secretName" -}}
+{{- if not .Values.secretVars.existingSecret.name }}
 {{- printf "%s-secret-vars" (include "argocd-appset-secret-plugin.fullname" .) }}
 {{- else }}
-{{- .Values.secretVars.existingSecret }}
+{{- .Values.secretVars.existingSecret.name }}
 {{- end }}
 {{- end }}
