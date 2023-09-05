@@ -7,7 +7,7 @@
 First, [install Argo CD](https://argo-cd.readthedocs.io/en/stable/getting_started/#1-install-argo-cd) on your cluster.
 
 ### Install with helm
-For helm, see the [README](./charts/argocd-appset-secret-plugin/README.md) for full details of the allowed values in values.yaml, but this is the gist for testing:
+For helm, see the [`README`](./charts/argocd-appset-secret-plugin/README.md) for full details of the allowed values in [`values.yaml`](./charts/argocd-appset-secret-plugin/values.yaml), but this is the gist for testing:
 
 ```console
 helm repo add appset-secret-plugin https://jessebot.github.io/argocd-appset-secret-plugin
