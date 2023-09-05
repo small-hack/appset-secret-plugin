@@ -54,7 +54,7 @@ spec:
             secretName: "{{ include "argocd-appset-secret-plugin.tokenSecret" . }}"
         - name: secret-vars
           secret:
-            secretName: "{{ include "argocd-appset-secret-plugin.varSecret" . }}"
+            secretName: "{{ include "argocd-appset-secret-plugin.secretName" . }}"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
