@@ -43,8 +43,8 @@ spec:
               subPath: "token"
               readOnly: true
             - name: secret-vars
-              mountPath: "/var/run/secret-plugin/secret_vars.yaml"
-              subPath: "secret_vars.yaml"
+              mountPath: "/var/run/secret-plugin/{{ .Values.secretVars.existingSecret.key }}"
+              subPath: {{ .Values.secretVars.existingSecret.key }}
               readOnly: true
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
