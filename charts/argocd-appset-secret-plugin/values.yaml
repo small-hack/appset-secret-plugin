@@ -21,9 +21,12 @@ fullnameOverride: ""
 secretVars:
   existingSecret:
     # -- the name of an existing secret to use for the secret keys to provide to ApplicationSets via the plugin generator
+    # defaults to "%s-secret-vars" where %s is argocd-appset-secret-plugin.fullname which is the name of the 
+    # release or whatever you specified for fullnameOverride
     name: ""
-    # -- key in secretVars.existingSecret to use for IN-LINE yaml secret values
-    key: ""
+    # -- key in secretVars.existingSecret to use for IN-LINE yaml secret values, this key should be 
+    # the name of the file you want to create in the argocd-appset-secret-plugin container
+    key: "secret_vars.yaml"
 
 token:
   # -- the name of an existing secret to use for the token that argoCD and the plugin will use for communication
