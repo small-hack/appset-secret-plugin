@@ -19,8 +19,11 @@ nameOverride: ""
 fullnameOverride: ""
 
 secretVars:
-  # -- the name of an existing secret to use for the secret keys to provide to applicationSets via the plugin generator
-  existingSecret: ""
+  existingSecret:
+    # -- the name of an existing secret to use for the secret keys to provide to ApplicationSets via the plugin generator
+    name: ""
+    # -- key in secretVars.existingSecret to use for IN-LINE yaml secret values
+    key: ""
 
 token:
   # -- the name of an existing secret to use for the token that argoCD and the plugin will use for communication
