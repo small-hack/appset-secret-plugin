@@ -1,6 +1,6 @@
 # argocd-appset-secret-plugin
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.3.0](https://img.shields.io/badge/AppVersion-v0.3.0-informational?style=flat-square)
+![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.3.0](https://img.shields.io/badge/AppVersion-v0.3.0-informational?style=flat-square)
 
 A Helm chart for adding a K8s Secret Plugin Generator to ApplicationSets
 
@@ -30,7 +30,8 @@ A Helm chart for adding a K8s Secret Plugin Generator to ApplicationSets
 | podSecurityContext | object | `{}` | securityContext for the pod: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | replicaCount | int | `1` | number of replica pods to create |
 | resources | object | `{}` |  |
-| secretVars.existingSecret | string | `""` | the name of an existing secret to use for the secret keys to provide to applicationSets via the plugin generator |
+| secretVars.existingSecret.key | string | `"secret_vars.yaml"` | key in secretVars.existingSecret to use for IN-LINE yaml secret values, this key should be the name of the file you want to create in the argocd-appset-secret-plugin container |
+| secretVars.existingSecret.name | string | `""` | the name of an existing secret to use for the secret keys to provide to ApplicationSets via the plugin generator defaults to "%s-secret-vars" where %s is argocd-appset-secret-plugin.fullname which is the name of the release or whatever you specified for fullnameOverride |
 | securityContext | object | `{}` | securityContext for the container: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | service.port | int | `80` | service port to expose on the cluster |
 | service.targetPort | int | `4355` | service target port on the container |
