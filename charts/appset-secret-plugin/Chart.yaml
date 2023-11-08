@@ -3,7 +3,6 @@ name: appset-secret-plugin
 description: A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 maintainers:
   - name: "jessebot"
-    email: "jessebot@linux.com"
     url: "https://github.com/jessebot/"
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -16,7 +15,7 @@ maintainers:
 # pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
 
-version: 0.5.0
+version: 0.6.0
 
 # renovate: image=jessebot/argocd-appset-secret-plugin
-appVersion: "v0.3.0"
+appVersion: "v0.4.0"
