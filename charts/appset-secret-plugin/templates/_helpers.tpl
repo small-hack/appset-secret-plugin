@@ -79,7 +79,7 @@ Defining the token and base url values for the configmap
 {{- end }}
 
 {{- define "argocd-appset-secret-plugin.baseUrl" -}}
-{{- printf "http://%s.argocd.svc.cluster.local" (include "argocd-appset-secret-plugin.fullname" .) }}
+{{- printf "http://%s.%s.svc.cluster.local" (include "argocd-appset-secret-plugin.fullname" .) .Release.Namespace }}
 {{- end }}
 
 {{/*
