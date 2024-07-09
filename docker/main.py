@@ -36,7 +36,7 @@ class Plugin(BaseHTTPRequestHandler):
         self.end_headers()
         # this is what actually gets sent to the argocd appset
         json_str = dumps(reply).encode("UTF-8")
-        logging.debug(f"replying with {json_str}")
+        logging.debug(f"final reply phase: sending back json str: {json_str}")
         self.wfile.write(json_str)
 
     def forbidden(self):
