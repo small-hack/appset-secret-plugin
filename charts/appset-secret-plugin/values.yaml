@@ -26,6 +26,10 @@ token:
   # -- the name of an existing secret to use for the token that argoCD and the plugin will use for communication
   existingSecret: ""
 
+logging:
+  # -- logging level for docker container. Can be one of: debug, info, warning, error
+  level: warning
+
 serviceAccount:
   # -- Specifies whether a service account should be created
   create: true
