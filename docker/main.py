@@ -1,7 +1,7 @@
 """
 code mostly from https://github.com/argoproj-labs/applicationset-hello-plugin
 which is a template repo but has no license
-revisions by @jessebot and assumed to be whatever Argo's default license is
+revisions by @jessebot and those revisions are AGPL licensed
 """
 from json import loads, dumps
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -34,7 +34,10 @@ class Plugin(BaseHTTPRequestHandler):
         """
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(dumps(reply).encode("UTF-8"))
+        # this is what actually gets sent to the argocd appset
+        json_str = dumps(reply).encode("UTF-8")
+        logging.debug(f"replying with {json_str}")
+        self.wfile.write(json_str)
 
     def forbidden(self):
         """
