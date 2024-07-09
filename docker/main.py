@@ -8,9 +8,19 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 import yaml
 import sys
+from os import environ
+
+ALL_LOGGING_LEVELS = {
+        "debug": logging.DEBUG,
+        "info": logging.INFO,
+        "warning": logging.WARNING,
+        "error": logging.ERROR,
+        "critical": logging.CRITICAL
+        }
+LOG_LEVEL = environ.get("LOG_LEVEL", "warning").lower()
 
 logging.basicConfig(stream=sys.stdout,
-                    level=logging.DEBUG,
+                    level=ALL_LOGGING_LEVELS[LOG_LEVEL],
                     format="%(asctime)s:%(levelname)s: %(message)s")
 
 # token should be mounted as a volume at run time
@@ -73,9 +83,15 @@ class Plugin(BaseHTTPRequestHandler):
                 msg = (f"Found value for variable, '{secret_var}', as requested"
                        f" by {appset_name}")
                 logging.info(msg)
+
+                var_value = SECRET_VARS[secret_var]
+                if isinstance(var_value, list):
+                    logging.info("We found a list, we'll set the response content type to json")
+                    self.send_header('Content-type', 'application/json')
+
                 # creates a dict with the requested secret key name and value
                 # then, appends it to the return_list
-                return_dict[secret_var] = SECRET_VARS[secret_var]
+                return_dict[secret_var] = var_value
 
         return [return_dict]
 
