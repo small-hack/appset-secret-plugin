@@ -43,6 +43,7 @@ class Plugin(BaseHTTPRequestHandler):
         return 200 HTTP code (success) if auth everything checks out
         """
         self.send_response(200)
+        self.send_header('Content-type', 'application/json')
         self.end_headers()
         # this is what actually gets sent to the argocd appset
         json_str = dumps(reply).encode("UTF-8")
@@ -84,14 +85,9 @@ class Plugin(BaseHTTPRequestHandler):
                        f" by {appset_name}")
                 logging.info(msg)
 
-                var_value = SECRET_VARS[secret_var]
-                if isinstance(var_value, list):
-                    logging.info("We found a list, we'll set the response content type to json")
-                    self.send_header('Content-type', 'application/json')
-
                 # creates a dict with the requested secret key name and value
                 # then, appends it to the return_list
-                return_dict[secret_var] = var_value
+                return_dict[secret_var] = SECRET_VARS[secret_var]
 
         return [return_dict]
 
