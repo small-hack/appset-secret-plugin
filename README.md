@@ -76,4 +76,4 @@ kubectl apply -f example/appset_and_secret.yaml
 ```
 
 ### Status
-This is an alpha project still, but I'm working on getting to beta. Please open a GitHub Issue with your method of installation, your distro of k8s and the version of your k8s tooling (kustomize, helm, etc), if you're having any trouble.
+This is beta project still, but I'm working on getting to stable. Please open a GitHub Issue with your method of installation, your distro of k8s and the version of your k8s tooling (kustomize, helm, etc), if you're having any trouble. Also, always happy to look at PRs :)
