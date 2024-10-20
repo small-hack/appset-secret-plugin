@@ -3,8 +3,8 @@ name: Generate helm docs
 on:
   pull_request:
     paths:
-      - 'charts/matrix/**'
-      
+      - 'charts/**'
+
 permissions:
   contents: write
   pull-requests: write
@@ -22,5 +22,5 @@ jobs:
       - name: Render helm docs inside the README.md and push changes back to PR branch
         uses: netfoundry/helm-docs-action@v1
         with:
-          working-dir: charts/matrix
+          working-dir: charts/appset-secret-plugin
           git-push: "true"
