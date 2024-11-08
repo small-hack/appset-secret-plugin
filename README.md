@@ -52,7 +52,7 @@ spec:
   generators:
     - plugin:
         configMapRef:
-          name: secret-plugin-generator
+          name: secret-var-plugin-generator
         input:
           parameters:
             secret_vars: ["app_name"]
