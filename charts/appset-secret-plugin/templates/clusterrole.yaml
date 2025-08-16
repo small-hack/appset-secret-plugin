@@ -1,0 +1,16 @@
+{{- if and .Values.rbac.create (not .Values.rbac.useExistingClusterRole) }}
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  labels:
+    {{- include "argocd-appset-secret-plugin.labels" . | nindent 4 }}
+  {{- with .Values.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  name: {{ include "argocd-appset-secret-plugin.fullname" . }}-clusterrole
+rules:
+  - apiGroups: [""] # "" indicates the core API group
+    resources: ["secrets"]
+    verbs: ["get", "watch", "list"]
+{{- end}}

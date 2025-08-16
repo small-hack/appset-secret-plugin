@@ -1,6 +1,6 @@
 # appset-secret-plugin
 
-![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.8.1](https://img.shields.io/badge/AppVersion-v0.8.1-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.8.1](https://img.shields.io/badge/AppVersion-v0.8.1-informational?style=flat-square)
 
 A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 
@@ -21,7 +21,7 @@ A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | configReloader.folder | string | `"/var/run/secret-plugin"` | full path on container to put secret file |
 | configReloader.image.pullPolicy | string | `"IfNotPresent"` | image pullPolicy for the main container |
-| configReloader.image.repository | string | `"quay.io/kiwigrid/k8s-sidecar"` | registry and repo for the configreloader image |
+| configReloader.image.repository | string | `"quay.io/kiwigrid/k8s-sidecar"` | registry and repo for the configreloader image defaults to https://github.com/kiwigrid/k8s-sidecar |
 | configReloader.image.tag | string | `"1.30.9"` | tag to point at for k8s-sidecar |
 | configReloader.interval | int | `10` | interval to wait before retrying a check for changes (in seconds) |
 | configReloader.label | string | `"argocd-appset-secret-plugin"` | the label to check for on the Secret (secretVars.existingSecret) |
@@ -36,6 +36,8 @@ A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 | nodeSelector | object | `{}` | deploy chart to a specific k8s node |
 | podAnnotations | object | `{}` | any additional annotations you'd like the pod to have |
 | podSecurityContext | object | `{}` | securityContext for the pod: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
+| rbac.create | bool | `true` | create rbac clusterole and clusterolebinding |
+| rbac.useExistingClusterRole | string | `""` | use existing clusterole, but still create clusterrolebinding |
 | replicaCount | int | `1` | number of replica pods to create |
 | resources | object | `{}` |  |
 | secretVars.existingSecret | string | `""` | name of an existing secret to use for the secret keys to provide to applicationSets via the plugin generator |
