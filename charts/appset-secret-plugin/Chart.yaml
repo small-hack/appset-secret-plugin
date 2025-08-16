@@ -9,7 +9,7 @@ type: application
 version: 1.0.0
 
 # renovate: image=jessebot/argocd-appset-secret-plugin
-appVersion: "v0.8.0"
+appVersion: "v0.8.1"
 
 maintainers:
   - name: "jessebot"
