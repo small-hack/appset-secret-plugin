@@ -100,6 +100,7 @@ class Plugin(BaseHTTPRequestHandler):
         """
         reloads the secret vars file
         """
+        logging.info(f"♻️ Reloading {SECRET_VARS_FILE}")
         with open(SECRET_VARS_FILE) as yaml_file:
             self.secret_vars = yaml.safe_load(yaml_file)
 
