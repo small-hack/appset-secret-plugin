@@ -20,6 +20,9 @@ A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | configReloader.folder | string | `"/var/run/secret-plugin"` | full path on container to put secret file |
+| configReloader.image.pullPolicy | string | `"IfNotPresent"` | image pullPolicy for the main container |
+| configReloader.image.repository | string | `"quay.io/kiwigrid/k8s-sidecar"` | registry and repo for the configreloader image |
+| configReloader.image.tag | string | `"1.30.3"` | tag to point at for k8s-sidecar |
 | configReloader.interval | int | `10` | interval to wait before retrying a check for changes (in seconds) |
 | configReloader.label | string | `"argocd-appset-secret-plugin"` | the label to check for on the Secret (secretVars.existingSecret) |
 | configReloader.labelValue | string | `"1"` | the label value to check for on the Secret (secretVars.existingSecret) |

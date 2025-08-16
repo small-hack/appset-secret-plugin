@@ -31,8 +31,8 @@ spec:
       containers:
         # reload config
         - name: config-reloader
-          image: quay.io/kiwigrid/k8s-sidecar:1.30.3
-          imagePullPolicy: IfNotPresent
+          image: "{{ .Values.configReloader.image.repository }}:{{ .Values.configReloader.image.tag }}"
+          imagePullPolicy: {{ .Values.configReloader.image.imagePullPolicy }}
           env:
             - name: LABEL
               value: "{{ .Values.configReloader.label }}"

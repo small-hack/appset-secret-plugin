@@ -37,6 +37,14 @@ logging:
 
 # configReloader sidecar that automatically loads in changes to your Secret
 configReloader:
+  image:
+    # -- registry and repo for the configreloader image
+    repository: quay.io/kiwigrid/k8s-sidecar
+    # -- tag to point at for k8s-sidecar
+    tag: 1.30.3
+    # -- image pullPolicy for the main container
+    pullPolicy: IfNotPresent
+
   # -- the label to check for on the Secret (secretVars.existingSecret)
   label: "argocd-appset-secret-plugin"
   # -- the label value to check for on the Secret (secretVars.existingSecret)
