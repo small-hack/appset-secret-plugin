@@ -108,9 +108,11 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-# -- create rbac clusterole
+# rbac rules needed to run the above configReloader
 rbac:
+  # -- create rbac clusterole and clusterolebinding
   create: true
+  # -- use existing clusterole, but still create clusterrolebinding
   useExistingClusterRole: ""
 
 # -- deploy chart to a specific k8s node

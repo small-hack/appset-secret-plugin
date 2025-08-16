@@ -36,7 +36,8 @@ A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 | nodeSelector | object | `{}` | deploy chart to a specific k8s node |
 | podAnnotations | object | `{}` | any additional annotations you'd like the pod to have |
 | podSecurityContext | object | `{}` | securityContext for the pod: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
-| rbac | object | `{"create":true,"useExistingClusterRole":""}` | create rbac clusterole |
+| rbac.create | bool | `true` | create rbac clusterole and clusterolebinding |
+| rbac.useExistingClusterRole | string | `""` | use existing clusterole, but still create clusterrolebinding |
 | replicaCount | int | `1` | number of replica pods to create |
 | resources | object | `{}` |  |
 | secretVars.existingSecret | string | `""` | name of an existing secret to use for the secret keys to provide to applicationSets via the plugin generator |
