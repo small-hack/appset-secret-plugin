@@ -19,16 +19,40 @@ nameOverride: ""
 fullnameOverride: ""
 
 secretVars:
-  # -- the name of an existing secret to use for the secret keys to provide to applicationSets via the plugin generator
+  # -- name of an existing secret to use for the secret keys to provide to
+  # applicationSets via the plugin generator
   existingSecret: ""
+  # key in existingSecret to use as the file name for the
+  # appset-env-generator-plugin container to load
+  secretKey: secret_vars.yaml
 
 token:
   # -- the name of an existing secret to use for the token that argoCD and the plugin will use for communication
   existingSecret: ""
 
 logging:
-  # -- logging level for docker container. Can be one of: debug, info, warning, error
+  # -- logging level for secret-plugin docker container
+  # Can be one of: debug, info, warning, error
   level: warning
+
+# configReloader sidecar that automatically loads in changes to your Secret
+configReloader:
+  image:
+    # -- registry and repo for the configreloader image
+    repository: quay.io/kiwigrid/k8s-sidecar
+    # -- tag to point at for k8s-sidecar
+    tag: 1.30.3
+    # -- image pullPolicy for the main container
+    pullPolicy: IfNotPresent
+
+  # -- the label to check for on the Secret (secretVars.existingSecret)
+  label: "argocd-appset-secret-plugin"
+  # -- the label value to check for on the Secret (secretVars.existingSecret)
+  labelValue: "1"
+  # -- interval to wait before retrying a check for changes (in seconds)
+  interval: 10
+  # -- full path on container to put secret file
+  folder: "/var/run/secret-plugin"
 
 serviceAccount:
   # -- Specifies whether a service account should be created

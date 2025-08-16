@@ -27,10 +27,12 @@ logging.basicConfig(stream=sys.stdout,
 with open("/var/run/argocd/token") as f:
     TOKEN = f.read().strip()
 
-with open("/var/run/secret-plugin/secret_vars.yaml") as yaml_file:
-    SECRET_VARS = yaml.safe_load(yaml_file)
+SECRET_VARS_FILE = environ.get("SECRET_VARS_FILE",
+                               "/var/run/secret-plugin/secret_vars.yaml")
 
 class Plugin(BaseHTTPRequestHandler):
+    def __init__(self):
+        self.secret_vars = {}
 
     def args(self):
         """
@@ -74,9 +76,12 @@ class Plugin(BaseHTTPRequestHandler):
 
         logging.info(secret_var_names)
 
+        # reload secrets file before checking
+        self.reload_secret_vars()
+
         # iterate through requested secret keys
         for secret_var in secret_var_names:
-            if secret_var not in SECRET_VARS:
+            if secret_var not in self.secret_vars:
                 msg = (f"'{secret_var}' not found in k8s secret, as requested by"
                        f" {appset_name}")
                 logging.warning(msg)
@@ -87,9 +92,16 @@ class Plugin(BaseHTTPRequestHandler):
 
                 # creates a dict with the requested secret key name and value
                 # then, appends it to the return_list
-                return_dict[secret_var] = SECRET_VARS[secret_var]
+                return_dict[secret_var] = self.secret_vars[secret_var]
 
         return [return_dict]
+
+    def reload_secret_vars(self):
+        """
+        reloads the secret vars file
+        """
+        with open(SECRET_VARS_FILE) as yaml_file:
+            self.secret_vars = yaml.safe_load(yaml_file)
 
     def do_POST(self):
         args = self.args()
