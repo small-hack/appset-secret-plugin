@@ -2,7 +2,9 @@
 
 <a href="https://github.com/small-hack/appset-secret-plugin/releases"><img src="https://img.shields.io/github/v/release/small-hack/appset-secret-plugin?style=plastic&labelColor=blue&color=028A0F&logo=GitHub&logoColor=white"></a> [![](https://img.shields.io/docker/pulls/jessebot/argocd-appset-secret-plugin.svg)](https://cloud.docker.com/u/jessebot/repository/docker/jessebot/argocd-appset-secret-plugin)
 
-[appset-secret-plugin](https://github.com/small-hack/appset-secret-plugin) is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Plugin/) (_only available in Argo CD `v2.8.0` or newer_) to fetch variables from an existing [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that is mounted as file in our plugin generator deployment.
+[appset-secret-plugin](https://github.com/small-hack/appset-secret-plugin) is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Plugin/) (_only available in Argo CD `v2.8.0` or newer_) to fetch variables from an existing [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that is mounted as a file in our plugin generator deployment.
+
+🆕 Now we reload your Kubernetes Secret at a configurable interval!
 
 ## Usage
 
