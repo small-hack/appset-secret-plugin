@@ -13,10 +13,11 @@ spec:
       {{- include "argocd-appset-secret-plugin.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+        k8s-sidecar-target-directory: "/var/run/secret-plugin/"
+        {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- end }}
       labels:
         {{- include "argocd-appset-secret-plugin.selectorLabels" . | nindent 8 }}
     spec:
@@ -28,6 +29,49 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
+        # reload config
+        - name: config-reloader
+          image: quay.io/kiwigrid/k8s-sidecar:1.30.3
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: LABEL
+              value: "{{ .Values.configReloader.label }}"
+
+            - name: LABEL_VALUE
+              value: "{{ .Values.configReloader.labelValue }}"
+
+            - name: FOLDER
+              value: "{{ .Values.configReloader.folder }}"
+
+            - name: SLEEP_TIME
+              value: "{{ .Values.configReloader.interval }}"
+
+            - name: RESOURCE
+              value: secret
+
+            - name: RESOURCE_NAME
+              value: "{{ include "argocd-appset-secret-plugin.varSecret" . }}"
+
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 50m
+              memory: 50Mi
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+
+          volumeMounts:
+            - name: secret-volume
+              mountPath: {{ .Values.configReloader.folder }}
+
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -37,35 +81,45 @@ spec:
             - name: http
               containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
+
           volumeMounts:
+            # this is the token required to access the http endpoint
             - name: token
               mountPath: "/var/run/argocd/token"
               subPath: "token"
               readOnly: true
-            - name: secret-vars
-              mountPath: "/var/run/secret-plugin/secret_vars.yaml"
-              subPath: "secret_vars.yaml"
-              readOnly: true
+
+            - name: secret-volume
+              mountPath: {{ .Values.configReloader.folder }}
+
           env:
             - name: LOG_LEVEL
               value: {{ .Values.logging.level }}
+
+            - name: SECRET_VARS_FILE
+              value: "{{ .Values.configReloader.folder }}/{{ .Values.secretVars.secretKey }}"
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+
       volumes:
         - name: token
           secret:
             secretName: "{{ include "argocd-appset-secret-plugin.tokenSecret" . }}"
-        - name: secret-vars
-          secret:
-            secretName: "{{ include "argocd-appset-secret-plugin.varSecret" . }}"
+
+        - name: secret-volume
+          emptyDir: {}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
       {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}

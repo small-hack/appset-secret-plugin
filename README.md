@@ -31,9 +31,12 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: argocd-secret-vars
+  # this need to be where-ever argocd is running
   namespace: argocd
   labels:
     app.kubernetes.io/part-of: argocd
+    # you need this for the argocd-appset-secret-plugin to be able to reload this secret
+    argocd-appset-secret-plugin: 1
 type: stringData
 data:
   secret_vars.yaml: |
