@@ -6,10 +6,10 @@ description: A Helm chart for adding a K8s Secret Plugin Generator to Argo CD Ap
 # to be deployed.
 type: application
 
-version: 1.1.1
+version: 1.1.2
 
 # renovate: image=jessebot/argocd-appset-secret-plugin
-appVersion: "v0.8.2"
+appVersion: "v0.8.3"
 
 maintainers:
   - name: "jessebot"
