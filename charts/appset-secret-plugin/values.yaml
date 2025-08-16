@@ -108,6 +108,11 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+# -- create rbac clusterole
+rbac:
+  create: true
+  useExistingClusterRole: ""
+
 # -- deploy chart to a specific k8s node
 nodeSelector: {}
 
