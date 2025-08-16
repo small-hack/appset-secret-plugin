@@ -2,6 +2,20 @@ apiVersion: v1
 entries:
   appset-secret-plugin:
   - apiVersion: v2
+    appVersion: v0.8.0
+    created: "2025-08-16T15:37:58.220033156Z"
+    description: A Helm chart for adding a K8s Secret Plugin Generator to Argo CD
+      ApplicationSets
+    digest: 0644d468b541161e018075c62ab2b71a119d15f6fcfcc0e2f85ba45af7be8807
+    maintainers:
+    - name: jessebot
+      url: https://jessebot.work
+    name: appset-secret-plugin
+    type: application
+    urls:
+    - https://github.com/small-hack/appset-secret-plugin/releases/download/appset-secret-plugin-1.0.0/appset-secret-plugin-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
     appVersion: v0.7.0
     created: "2024-11-08T06:32:19.153749894Z"
     description: A Helm chart for adding a K8s Secret Plugin Generator to Argo CD
@@ -283,4 +297,4 @@ entries:
     urls:
     - https://github.com/jessebot/argocd-appset-secret-plugin/releases/download/argocd-appset-secret-plugin-0.1.1/argocd-appset-secret-plugin-0.1.1.tgz
     version: 0.1.1
-generated: "2024-11-08T06:32:19.15380723Z"
+generated: "2025-08-16T15:37:58.220089312Z"
