@@ -41,7 +41,7 @@ configReloader:
     # -- registry and repo for the configreloader image
     repository: quay.io/kiwigrid/k8s-sidecar
     # -- tag to point at for k8s-sidecar
-    tag: 1.30.3
+    tag: 1.30.9
     # -- image pullPolicy for the main container
     pullPolicy: IfNotPresent
 
