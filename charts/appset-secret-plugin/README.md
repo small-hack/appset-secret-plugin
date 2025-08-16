@@ -1,6 +1,6 @@
 # appset-secret-plugin
 
-![Version: 0.9.1](https://img.shields.io/badge/Version-0.9.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.7.0](https://img.shields.io/badge/AppVersion-v0.7.0-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.8.0](https://img.shields.io/badge/AppVersion-v0.8.0-informational?style=flat-square)
 
 A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 
@@ -8,7 +8,7 @@ A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| jessebot |  | <https://github.com/jessebot/> |
+| jessebot |  | <https://jessebot.work> |
 
 ## Values
 
@@ -19,6 +19,10 @@ A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| configReloader.folder | string | `"/var/run/secret-plugin"` | full path on container to put secret file |
+| configReloader.interval | int | `10` | interval to wait before retrying a check for changes (in seconds) |
+| configReloader.label | string | `"argocd-appset-secret-plugin"` | the label to check for on the Secret (secretVars.existingSecret) |
+| configReloader.labelValue | string | `"1"` | the label value to check for on the Secret (secretVars.existingSecret) |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` | image pullPolicy for the main container |
 | image.repository | string | `"jessebot/argocd-appset-secret-plugin"` | image repo to use for the docker container |
@@ -31,7 +35,8 @@ A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 | podSecurityContext | object | `{}` | securityContext for the pod: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | replicaCount | int | `1` | number of replica pods to create |
 | resources | object | `{}` |  |
-| secretVars.existingSecret | string | `""` | the name of an existing secret to use for the secret keys to provide to applicationSets via the plugin generator |
+| secretVars.existingSecret | string | `""` | name of an existing secret to use for the secret keys to provide to applicationSets via the plugin generator |
+| secretVars.secretKey | string | `"secret_vars.yaml"` |  |
 | securityContext | object | `{}` | securityContext for the container: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | service.port | int | `80` | service port to expose on the cluster |
 | service.targetPort | int | `4355` | service target port on the container |
