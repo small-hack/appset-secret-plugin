@@ -33,6 +33,7 @@ SECRET_VARS_FILE = environ.get("SECRET_VARS_FILE",
 class Plugin(BaseHTTPRequestHandler):
     def __init__(self):
         self.secret_vars = {}
+        super().__init__()
 
     def args(self):
         """
