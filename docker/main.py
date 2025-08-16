@@ -31,10 +31,6 @@ SECRET_VARS_FILE = environ.get("SECRET_VARS_FILE",
                                "/var/run/secret-plugin/secret_vars.yaml")
 
 class Plugin(BaseHTTPRequestHandler):
-    def __init__(self):
-        self.secret_vars = {}
-        super().__init__()
-
     def args(self):
         """
         this just gets the args requested, I thought
@@ -78,11 +74,11 @@ class Plugin(BaseHTTPRequestHandler):
         logging.info(secret_var_names)
 
         # reload secrets file before checking
-        self.reload_secret_vars()
+        secret_vars = self.reload_secret_vars()
 
         # iterate through requested secret keys
         for secret_var in secret_var_names:
-            if secret_var not in self.secret_vars:
+            if secret_var not in secret_vars:
                 msg = (f"'{secret_var}' not found in k8s secret, as requested by"
                        f" {appset_name}")
                 logging.warning(msg)
@@ -93,7 +89,7 @@ class Plugin(BaseHTTPRequestHandler):
 
                 # creates a dict with the requested secret key name and value
                 # then, appends it to the return_list
-                return_dict[secret_var] = self.secret_vars[secret_var]
+                return_dict[secret_var] = secret_vars[secret_var]
 
         return [return_dict]
 
@@ -103,7 +99,7 @@ class Plugin(BaseHTTPRequestHandler):
         """
         logging.info(f"♻️ Reloading {SECRET_VARS_FILE}")
         with open(SECRET_VARS_FILE) as yaml_file:
-            self.secret_vars = yaml.safe_load(yaml_file)
+            return yaml.safe_load(yaml_file)
 
     def do_POST(self):
         args = self.args()
