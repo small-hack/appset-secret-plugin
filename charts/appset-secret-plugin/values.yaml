@@ -31,11 +31,11 @@ token:
   existingSecret: ""
 
 logging:
-  # -- logging level for docker container. Can be one of: debug, info, warning, error
+  # -- logging level for secret-plugin docker container
+  # Can be one of: debug, info, warning, error
   level: warning
 
-# concerns the new configReloader sidecar that automatically
-# loads in changes to your secrets
+# configReloader sidecar that automatically loads in changes to your Secret
 configReloader:
   # -- the label to check for on the Secret (secretVars.existingSecret)
   label: "argocd-appset-secret-plugin"
@@ -45,7 +45,6 @@ configReloader:
   interval: 10
   # -- full path on container to put secret file
   folder: "/var/run/secret-plugin"
-
 
 serviceAccount:
   # -- Specifies whether a service account should be created
