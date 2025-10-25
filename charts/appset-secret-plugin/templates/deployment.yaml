@@ -52,13 +52,10 @@ spec:
             - name: RESOURCE_NAME
               value: "{{ include "argocd-appset-secret-plugin.varSecret" . }}"
 
+          {{- with .Values.configReloader.resources }}
           resources:
-            limits:
-              cpu: 100m
-              memory: 100Mi
-            requests:
-              cpu: 50m
-              memory: 50Mi
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
 
           securityContext:
             allowPrivilegeEscalation: false
@@ -99,8 +96,10 @@ spec:
             - name: SECRET_VARS_FILE
               value: "{{ .Values.configReloader.folder }}/{{ .Values.secretVars.secretKey }}"
 
+          {{- with .Values.resources }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
 
       volumes:
         - name: token
