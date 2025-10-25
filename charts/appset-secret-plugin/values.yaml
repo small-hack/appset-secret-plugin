@@ -55,6 +55,19 @@ configReloader:
   # -- full path on container to put secret file
   folder: "/var/run/secret-plugin"
 
+  # resourcs for the configReloader container
+  resources:
+    requests:
+      # -- requested cpu on configReloader startup
+      cpu: 50m
+      # -- requested memory on configReloader startup
+      memory: 100Mi
+    limits:
+      # -- cpu limit for the configreloader
+      cpu: 100m
+      # -- memory limit for the configreloader
+      memory: 200Mi
+
 serviceAccount:
   # -- Specifies whether a service account should be created
   create: true
@@ -88,6 +101,7 @@ service:
   # -- service target port on the container
   targetPort: 4355
 
+# -- resources for the appset secret plugin container
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
