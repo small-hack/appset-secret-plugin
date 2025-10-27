@@ -12,5 +12,6 @@ metadata:
 rules:
   - apiGroups: [""] # "" indicates the core API group
     resources: ["secrets"]
+    resourceNames: [{{ .Values.secretVars.existingSecret | quote }}]
     verbs: ["get", "watch", "list"]
 {{- end}}
