@@ -1,6 +1,6 @@
 # appset-secret-plugin
 
-![Version: 1.4.0](https://img.shields.io/badge/Version-1.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.0](https://img.shields.io/badge/AppVersion-v0.9.0-informational?style=flat-square)
+![Version: 1.4.1](https://img.shields.io/badge/Version-1.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.0](https://img.shields.io/badge/AppVersion-v0.9.0-informational?style=flat-square)
 
 A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 
@@ -22,7 +22,7 @@ A Helm chart for adding a K8s Secret Plugin Generator to Argo CD ApplicationSets
 | configReloader.folder | string | `"/var/run/secret-plugin"` | full path on container to put secret file |
 | configReloader.image.pullPolicy | string | `"IfNotPresent"` | image pullPolicy for the main container |
 | configReloader.image.repository | string | `"quay.io/kiwigrid/k8s-sidecar"` | registry and repo for the configreloader image defaults to https://github.com/kiwigrid/k8s-sidecar |
-| configReloader.image.tag | string | `"1.30.11"` | tag to point at for k8s-sidecar |
+| configReloader.image.tag | string | `"1.30.9"` | tag to point at for k8s-sidecar tag 1.30.10 and 1.30.11 are currently bugged: https://github.com/kiwigrid/k8s-sidecar/issues/431#issuecomment-3401233149 |
 | configReloader.interval | int | `10` | interval to wait before retrying a check for changes (in seconds) |
 | configReloader.label | string | `"argocd-appset-secret-plugin"` | the label to check for on the Secret (secretVars.existingSecret) |
 | configReloader.labelValue | string | `"1"` | the label value to check for on the Secret (secretVars.existingSecret) |

@@ -42,7 +42,9 @@ configReloader:
     # defaults to https://github.com/kiwigrid/k8s-sidecar
     repository: quay.io/kiwigrid/k8s-sidecar
     # -- tag to point at for k8s-sidecar
-    tag: 1.30.11
+    # tag 1.30.10 and 1.30.11 are currently bugged:
+    # https://github.com/kiwigrid/k8s-sidecar/issues/431#issuecomment-3401233149
+    tag: 1.30.9
     # -- image pullPolicy for the main container
     pullPolicy: IfNotPresent
 
