@@ -1,3 +1,6 @@
+> [!NOTE]
+> Migrated to https://git.smallhack.org/small-hack/appset-secret-plugin and mirrored to https://codeberg.org/small-hack/appset-secret-plugin
+
 # ApplicationSet Secret Plugin Generator
 
 <a href="https://github.com/small-hack/appset-secret-plugin/releases"><img src="https://img.shields.io/github/v/release/small-hack/appset-secret-plugin?style=plastic&labelColor=blue&color=028A0F&logo=GitHub&logoColor=white"></a> [![](https://img.shields.io/docker/pulls/jessebot/argocd-appset-secret-plugin.svg)](https://cloud.docker.com/u/jessebot/repository/docker/jessebot/argocd-appset-secret-plugin)
