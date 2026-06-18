@@ -1,11 +1,11 @@
-> [!NOTE]
-> Migrated to https://git.smallhack.org/small-hack/appset-secret-plugin and mirrored to https://codeberg.org/small-hack/appset-secret-plugin
+# ⚠️ Notice of migration
+Migrated to https://codeberg.org/open-engineering/appset-secret-plugin
 
 # ApplicationSet Secret Plugin Generator
 
-<a href="https://github.com/small-hack/appset-secret-plugin/releases"><img src="https://img.shields.io/github/v/release/small-hack/appset-secret-plugin?style=plastic&labelColor=blue&color=028A0F&logo=GitHub&logoColor=white"></a> [![](https://img.shields.io/docker/pulls/jessebot/argocd-appset-secret-plugin.svg)](https://cloud.docker.com/u/jessebot/repository/docker/jessebot/argocd-appset-secret-plugin)
+<a href="https://github.com/open-engineering-nl/appset-secret-plugin/releases"><img src="https://img.shields.io/github/v/release/open-engineering-nl/appset-secret-plugin?style=plastic&labelColor=blue&color=028A0F&logo=GitHub&logoColor=white"></a> [![](https://img.shields.io/docker/pulls/jessebot/argocd-appset-secret-plugin.svg)](https://cloud.docker.com/u/jessebot/repository/docker/jessebot/argocd-appset-secret-plugin)
 
-[appset-secret-plugin](https://github.com/small-hack/appset-secret-plugin) is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Plugin/) (_only available in Argo CD `v2.8.0` or newer_) to fetch variables from an existing [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that is mounted as a file in our plugin generator deployment.
+[appset-secret-plugin](https://github.com/open-engineering-nl/appset-secret-plugin) is an Argo CD [ApplicationSet Plugin Generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Plugin/) (_only available in Argo CD `v2.8.0` or newer_) to fetch variables from an existing [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) that is mounted as a file in our plugin generator deployment.
 
 🆕 Now we reload your Kubernetes Secret at a configurable interval!
 
@@ -18,7 +18,7 @@ First, [install Argo CD](https://argo-cd.readthedocs.io/en/stable/getting_starte
 For helm, see the [`README`](./charts/appset-secret-plugin/README.md) for full details of the allowed values in [`values.yaml`](./charts/appset-secret-plugin/values.yaml), but this is the gist for testing:
 
 ```console
-helm repo add appset-secret-plugin https://small-hack.github.io/appset-secret-plugin
+helm repo add appset-secret-plugin https://open-engineering-nl.github.io/appset-secret-plugin
 helm install my-release-name appset-secret-plugin/appset-secret-plugin
 ```
 
